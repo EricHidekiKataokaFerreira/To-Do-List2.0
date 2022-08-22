@@ -7,7 +7,7 @@ function AddItem(tarefa, status, indice) {
     var texto = document.querySelector('#input-text').value;
     var item = document.createElement('label');
     item.classList.add('todo__item');
-    item.innerHTML = "<input type=\"checkbox\"> <div\">".concat(texto, "</div> <input id='remove-item' type=\"button\" value=\"excluir\">");
+    item.innerHTML = "<input type=\"checkbox\"> <div>".concat(texto, "</div> <input id='remove-item' type=\"button\" value=\"excluir\">");
     document.getElementById('todo-list').appendChild(item);
     banco.push({ 'tarefa': texto, 'status': '' });
     setBanco(banco);

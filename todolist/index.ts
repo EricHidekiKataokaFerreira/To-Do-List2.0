@@ -14,7 +14,7 @@ function AddItem(tarefa: string, status: string, indice: string){
   const item = document.createElement('label')
   item.classList.add('todo__item')
   
-  item.innerHTML = `<input type="checkbox"> <div">${texto}</div> <input id='remove-item' type="button" value="excluir">`
+  item.innerHTML = `<input type="checkbox"> <div>${texto}</div> <input id='remove-item' type="button" value="excluir">`
 
   document.getElementById('todo-list').appendChild(item)
   
