@@ -15,8 +15,48 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 .todo__item {
-  display: block;
-  margin: 10px;
+  display: flex;
+  margin-bottom: 20px;
+}
+.todo__item-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background-color: white;
+  border-radius: 20px;
+  width: 88%;
+}
+.todo__todo-container-item {
+  width: 50%;
+}
+.todo__list {
+  padding-left: 0;
+}
+.todo__input-text {
+  padding: 1rem;
+  border-radius: 20px;
+  border: none;
+}
+.todo__remove-item {
+  width: 10%;
+  margin-left: 2%;
+  border-radius: 20px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+.todo__add-button {
+  padding: 1rem;
+  border-radius: 20px;
+  border: none;
+  background: white;
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+}
+.todo__input {
+  margin-bottom: 20px;
 }

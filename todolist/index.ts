@@ -1,45 +1,69 @@
-let containerItem = document.querySelector('todo__todo-container-item')
+// const texto = (<HTMLSelectElement>document.querySelector('#input-text')).value
+const texto: any = document.querySelector('#input-text')
+const addButton: any = document.querySelector('#add-button')
+const ulList = document.querySelector('#list')
 
-let banco = []
-
-const getBanco = () => JSON.parse(localStorage.getItem('todo-list')) ?? []
-
-const setBanco = (banco) => localStorage.setItem('todo-list', JSON.stringify(banco))
-
-function AddItem(tarefa: string, status: string, indice: string){
-  const todoList = document.getElementById('todoList')
-
-  var texto =  (<HTMLSelectElement>document.querySelector('#input-text')).value
-  
-  const item = document.createElement('label')
-  item.classList.add('todo__item')
-  
-  item.innerHTML = `<input type="checkbox"> <div>${texto}</div> <input id='remove-item' type="button" value="excluir">`
-
-  document.getElementById('todo-list').appendChild(item)
-  
-  banco.push ({'tarefa': texto, 'status': ''})
-  setBanco(banco)
-  refreshScreen(todoList)
-  console.log(banco)
+interface IItem {
+  name: string
+  status: string
 }
 
-const RemoveItem = (evento) => {
-  const elemento = evento.target
-  const indice = elemento.dataset.indice
-  const todoList = document.getElementById('todoList')
-  const banco = getBanco()
+var list: IItem[] = []
 
-  console.log('banco', banco)
-  banco.splice (indice, 1)
-  setBanco(banco)
-  refreshScreen(todoList)
+texto.addEventListener('keypress', (e: any) => {
+  if (e.key == "Enter" && texto.value !== '') {
+    addItemList()
+  }
+})
+
+addButton.onclick = () => {
+  if (texto.value !== '') {
+    addItemList()
+  }
 }
 
-const refreshScreen = (todoList) => {
-  while (todoList.firstChild) { todoList.removeChild(todoList.lastChild) }
-  const banco = getBanco()
-  banco.forEach ( (item, indice) => AddItem (item.tarefa, item.status, indice))
+function refreshList () {
+  ulList.innerHTML = ''
+
+  list = JSON.parse(localStorage.getItem('todoList')) ?? []
+  list.forEach((item: IItem, i ) => {
+    addItemOnScreen({name: item.name, status: item.status}, i)
+  })
 }
 
-document.getElementById('remove-item').addEventListener('keypress', RemoveItem)
+function addItemOnScreen (item: IItem, i: number) {
+  const li = document.createElement('li')
+  li.classList.add('todo__item');
+
+  li.innerHTML = `
+  <div class="todo__item-content">
+    <input type="checkbox" ${item.status} data-i=${i} onchange="done(this, ${i});" />
+    <p data-si=${i}>${item.name}</p>
+    </div>
+    <button class='todo__remove-item' onclick="removeItem(${i})" data-i=${i}><i></i></button>
+  `
+
+  ulList.appendChild(li)
+
+  texto.value = ''
+}
+
+function updateList () {
+  localStorage.setItem('todoList', JSON.stringify(list))
+  refreshList()
+} 
+
+function addItemList (){
+  list.push( { 'name': texto.value, 'status': '' } )
+  updateList()
+}
+
+function removeItem (i: number) {
+  list.splice(i, 1)
+  updateList()
+}
+
+function setChecked (status, i) {
+  if (status.checked) list[i].status = 'checked'
+  else list[i].status = ''
+}
