@@ -24,7 +24,7 @@ function refreshList() {
 function addItemOnScreen(item, i) {
     var li = document.createElement('li');
     li.classList.add('todo__item');
-    li.innerHTML = "\n  <div class=\"todo__item-content\">\n    <input type=\"checkbox\" ".concat(item.status, " data-i=").concat(i, " onchange=\"done(this, ").concat(i, ");\" />\n    <p data-si=").concat(i, ">").concat(item.name, "</p>\n    </div>\n    <button class='todo__remove-item' onclick=\"removeItem(").concat(i, ")\" data-i=").concat(i, "><i></i></button>\n  ");
+    li.innerHTML = "\n  <div class=\"todo__item-content\">\n    <input type=\"checkbox\" ".concat(item.status, " data-i=").concat(i, " onchange=\"setChecked(this, ").concat(i, ");\" />\n    <p data-si=").concat(i, ">").concat(item.name, "</p>\n    </div>\n    <button class='todo__remove-item' onclick=\"removeItem(").concat(i, ")\" data-i=").concat(i, ">Remover</button>\n  ");
     ulList.appendChild(li);
     texto.value = '';
 }
@@ -45,4 +45,5 @@ function setChecked(status, i) {
         list[i].status = 'checked';
     else
         list[i].status = '';
+    updateList();
 }

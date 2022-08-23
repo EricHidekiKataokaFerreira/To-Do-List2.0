@@ -37,10 +37,10 @@ function addItemOnScreen (item: IItem, i: number) {
 
   li.innerHTML = `
   <div class="todo__item-content">
-    <input type="checkbox" ${item.status} data-i=${i} onchange="done(this, ${i});" />
+    <input type="checkbox" ${item.status} data-i=${i} onchange="setChecked(this, ${i});" />
     <p data-si=${i}>${item.name}</p>
     </div>
-    <button class='todo__remove-item' onclick="removeItem(${i})" data-i=${i}><i></i></button>
+    <button class='todo__remove-item' onclick="removeItem(${i})" data-i=${i}>Remover</button>
   `
 
   ulList.appendChild(li)
@@ -66,4 +66,5 @@ function removeItem (i: number) {
 function setChecked (status, i) {
   if (status.checked) list[i].status = 'checked'
   else list[i].status = ''
+  updateList()
 }
